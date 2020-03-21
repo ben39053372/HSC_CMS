@@ -3,10 +3,10 @@ import { TableContainer, Paper, TableHead, TableBody, TableRow, TableCell } from
 
 const header = [
   'ID',
-  'Link',
-  'Create Date',
-  'Release Date',
-  'Edit'
+  'Customer',
+  'Broker',
+  'Gift',
+  'Redeemed'
 ]
 
 export default () => {

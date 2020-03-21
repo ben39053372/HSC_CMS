@@ -5,6 +5,7 @@ import Gift from '@View/Gift'
 import Setting from '@View/Setting'
 import TandC from '@View/TandC'
 import Layout from '@/Layouts'
+import ClosingRecord from '@View/ClosingRecord'
 
 const routes = [
   {
@@ -26,6 +27,12 @@ const routes = [
         path: '/Brokers',
         component: Brokers,
         name: 'Brokers',
+        isPages: true
+      },
+      {
+        path: '/closingRecord',
+        component: ClosingRecord,
+        name: 'Closing Record',
         isPages: true
       },
       {

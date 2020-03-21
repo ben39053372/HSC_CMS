@@ -292,6 +292,7 @@ module.exports = function(webpackEnv) {
         'react-native': 'react-native-web',
         "@": path.resolve('src'),
         "@api": path.resolve('src/Api'),
+        "@utils": path.resolve('src/Utils'),
         "@Styles": path.resolve('src/Styles/classes'),
         "@View": path.resolve('src/Views'),
         "@Routes": path.resolve('src/Routes'),
