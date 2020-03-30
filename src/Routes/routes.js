@@ -1,5 +1,5 @@
 import Login from '@View/Login'
-import Home from '@View/Home'
+import DashBoard from '@View/Dashboard'
 import Brokers from '@View/Brokers'
 import Gift from '@View/Gift'
 import Setting from '@View/Setting'
@@ -18,7 +18,7 @@ const routes = [
     routes: [
       {
         path: '/',
-        component: Home,
+        component: DashBoard,
         name: 'DashBoard',
         exact: true,
         isPages: true

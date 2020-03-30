@@ -1,17 +1,16 @@
 import axios from 'axios'
 
-const api = axios.create({
-  // setting
-  baseURL: 'http://localhost:2222',
-  timeoutL: 5000,
+const config = {
+  baseURL: 'https://insurance-api.heshecar.com',
+  timeout: 10000,
+  validateStatus: false
+}
+
+const api = axios.create(config)
+
+api.interceptors.request.use(config => {
+  config.headers['HSCInsuranceApiKey'] = 'cms'
+  return config
 })
 
-api.interceptors.request.use(
-  config => {
-    
-  },
-  error => {
-    console.log(error)
-    return Promise.reject(error)
-  }
-)
+export default api

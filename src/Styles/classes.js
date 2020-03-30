@@ -57,6 +57,33 @@ const useStyles = makeStyles(theme => ({
   login_main: {
     display: 'flex',
     flexDirection: 'column'
+  },
+  dashboardList: {
+    width: '90%'
+  },
+  DashboardListItem: {
+    borderBottom: '1px solid #DDD'
+  },
+  brokerListTable: {
+    width: '100%'
+  },
+  privilegeInput: {
+    padding: '8px',
+    margin: '0px',
+    width: '70px'
+  },
+  settingInput: {
+    margin: '0 20px',
+    width: '50px'
+  },
+  uploadButton: {
+    display: 'flex',
+    width: '10rem',
+    margin: '0 auto 20px auto'
+  },
+  uploadRelaseDateInput: {
+    display: 'flex',
+    margin: '10px auto',
   }
 }))
 

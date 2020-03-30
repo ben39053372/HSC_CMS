@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { Drawer, List, Divider, ListItem } from '@material-ui/core'
 import useStyles from '@/Styles/classes'
 import IconButton from '@material-ui/core/IconButton'
@@ -15,9 +15,6 @@ export default (props) => {
   const history = useHistory()
   const drawerOpen = useSelector(state => state.drawerOpen)
   const dispatch = useDispatch()
-  useEffect(()=>{
-    console.log(props)
-  })
   const toggleDrawer = () => {
     dispatch({
       type: 'TOGGLE_DRAWER'

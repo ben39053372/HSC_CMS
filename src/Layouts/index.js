@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Appbar from './Appbar'
 import Drawer from './Drawer'
 import useStyles from '../Styles/classes'
@@ -9,9 +9,6 @@ import { renderRoutes } from 'react-router-config'
 const Main = ({route}) => {
   const drawerOpen = useSelector(state => state.drawerOpen)
   const classes = useStyles()
-  useEffect(()=>{
-    console.log(route)
-  })
   return (
     <div className={classes.App}>
       <Appbar />
