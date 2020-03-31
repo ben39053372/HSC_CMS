@@ -59,9 +59,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column'
   },
   dashboardList: {
-    width: '90%'
+    backgroundColor: '#FFF'
   },
   DashboardListItem: {
+    padding: '0 10px',
     borderBottom: '1px solid #DDD'
   },
   brokerListTable: {
@@ -70,7 +71,7 @@ const useStyles = makeStyles(theme => ({
   privilegeInput: {
     padding: '8px',
     margin: '0px',
-    width: '70px'
+    width: '120px'
   },
   settingInput: {
     margin: '0 20px',
@@ -84,7 +85,15 @@ const useStyles = makeStyles(theme => ({
   uploadRelaseDateInput: {
     display: 'flex',
     margin: '10px auto',
-  }
+  },
+  releaseDateInput: {
+    margin: '5px 10px'
+  },
+  main:{
+    backgroundColor: '#eee',
+    minHeight: '100vh'
+  },
+  
 }))
 
 export default useStyles

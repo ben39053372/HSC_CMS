@@ -41,8 +41,8 @@ export default () => {
     console.log(e.target.value)
     e.persist();
     setTerms(state => {
-      let temp = {...state}
-      temp[label] = e.target.value 
+      let temp = { ...state }
+      temp[label] = e.target.value
       console.log(temp)
       return temp
     })
@@ -65,42 +65,44 @@ export default () => {
   }
 
   // effect
-  useEffect(()=> {
+  useEffect(() => {
     fetchData()
   }, [])
 
   return (
     <div>
-      
+
       <FinishDialog open={finishOpen} onClose={onFinishDialogClose} msg={finishMsg} />
       <Typography variant="h4">T&C</Typography>
       <div style={{ marginTop: '20px' }} />
       <Button variant="contained" color="primary" onClick={onUpdateClick} >Update</Button>
-      <Tabs
-        value={lang}
-        indicatorColor="primary"
-        textColor="primary"
-        onChange={handleChange}
-        aria-label="disabled tabs example"
-      >
-        <Tab label="中文" />
-        <Tab label="英文" />
-      </Tabs>
-      <div style={{ marginTop: '20px' }} />
-      <Divider />
-      {lang === 0 && (
-        <>
-          <TextField fullWidth label="T&C Title" value={terms.titleCht} onChange={(e) => onInputChange(e, 'titleCht')} />
-          <TextField fullWidth label="T&C Content" value={terms.contentCht} multiline  onChange={(e) => onInputChange(e, 'contentCht')} />
-        </>
-      )}
-      {lang === 1 && (
-        <>
-          <TextField fullWidth label="T&C Title" value={terms.titleEn} onChange={(e) => onInputChange(e, 'titleEn')}  />
-          <TextField fullWidth label="T&C Content" value={terms.contentEn} multiline onChange={(e) => onInputChange(e, 'contentEn')} />
-        </>
-      )}
-      
+      <div style={{backgroundColor: '#fff', marginTop: '20px', padding: '20px'}}>
+        <Tabs
+          value={lang}
+          indicatorColor="primary"
+          textColor="primary"
+          onChange={handleChange}
+          aria-label="disabled tabs example"
+        >
+          <Tab label="中文" />
+          <Tab label="英文" />
+        </Tabs>
+        <div style={{ marginTop: '20px' }} />
+        <Divider />
+        {lang === 0 && (
+          <>
+            <TextField style={{display: 'flex', flexGrow: 1}} label="T&C Title" value={terms.titleCht} onChange={(e) => onInputChange(e, 'titleCht')} />
+            <TextField style={{display: 'flex', flexGrow: 1}} label="T&C Content" value={terms.contentCht} multiline onChange={(e) => onInputChange(e, 'contentCht')} />
+          </>
+        )}
+        {lang === 1 && (
+          <>
+            <TextField style={{display: 'flex', flexGrow: 1}} label="T&C Title" value={terms.titleEn} onChange={(e) => onInputChange(e, 'titleEn')} />
+            <TextField style={{display: 'flex', flexGrow: 1}} label="T&C Content" value={terms.contentEn} multiline onChange={(e) => onInputChange(e, 'contentEn')} />
+          </>
+        )}
+      </div>
+
     </div>
   )
 }

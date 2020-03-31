@@ -220,7 +220,7 @@ export default () => {
           <TableHead>
             <TableRow>
               {header.map((item, index) => (
-                <TableCell key={`Broker_TableCell_${index}`} align={index === 0 ? 'left' : 'right'}>
+                <TableCell key={`Broker_TableCell_${index}`} align="left">
                   {item}
                 </TableCell>
               ))}
@@ -231,13 +231,13 @@ export default () => {
             {brokerList && brokerList.map(item => (
               <TableRow key={`brokerList_${item.id}`}>
                 <TableCell component="th" scope="row">#{item.id}</TableCell>
-                <TableCell align="right">{item.nameEn + ' ' + item.nameCht}</TableCell>
-                <TableCell align="right">{item.companyNameEn + ' ' + item.companyNameCht}</TableCell>
-                <TableCell align="right">{item.phoneNumber}</TableCell>
-                <TableCell align="right">{item.email}</TableCell>
+                <TableCell align="left">{item.nameEn + ' ' + item.nameCht}</TableCell>
+                <TableCell align="left">{item.companyNameEn + ' ' + item.companyNameCht}</TableCell>
+                <TableCell align="left">{item.phoneNumber}</TableCell>
+                <TableCell align="left">{item.email}</TableCell>
 
                 {/* active button */}
-                <TableCell align="right">
+                <TableCell align="left">
                   <Button
                     variant="contained"
                     onClick={() => onActiveClick(item)}
@@ -248,12 +248,12 @@ export default () => {
                 </TableCell>
 
                 {/* privilege */}
-                <TableCell align="right">
+                <TableCell align="left">
                   <TextField onChange={e => onPrivilegeChange(e, item)} className={classes.privilegeInput} type="number" value={item.privilege} />
                 </TableCell>
 
                 {/* Edit button */}
-                <TableCell align="right">
+                <TableCell align="left">
                   <Button
                     onClick={() => onEditButtonClick(item)}
                     variant="contained"

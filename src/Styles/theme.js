@@ -12,6 +12,12 @@ export default createMuiTheme({
         textAlign: 'right'
       }
     },
+    MuiList: {
+      padding: {
+        paddingTop: 0,
+        paddingBottom: 0,
+      }
+    },
     MuiListItem: {
       gutters: {
         padding: '10px'

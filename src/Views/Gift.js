@@ -8,6 +8,7 @@ const header = [
   'Link',
   'Create Date',
   'Release Date',
+  'Edit'
 ]
 
 const CreateGiftDialog = props => {
@@ -168,6 +169,7 @@ const EditGiftDialog = props => {
 
 export default () => {
   // state
+  const classes = useStyles()
   const [giftRecordList, setGiftRecordList] = useState([])
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
@@ -212,7 +214,7 @@ export default () => {
           <TableHead>
             <TableRow>
               {header.map((item, index) => (
-                <TableCell align={index === 0 ? 'left' : 'right'} key={`Broker_TableCell_${index}`}>
+                <TableCell align="left" key={`Broker_TableCell_${index}`}>
                   {item}
                 </TableCell>
               ))}
@@ -222,8 +224,23 @@ export default () => {
             {giftRecordList && giftRecordList.map((item, index) => (
               <TableRow key={`gift_record_list_${index}`}>
                 <TableCell>{item.id}</TableCell>
-                <TableCell align="right">
+                <TableCell align="left">
                   <Link href={item.giftImageLink} target="blank">{item.giftImageLink}</Link>
+                </TableCell>
+                <TableCell align="left">{item.createTimestamp}</TableCell>
+                {/* <TableCell align="left">{item.releaseDate}</TableCell> */}
+                <TableCell align="left">
+                  <TextField
+                    id="date"
+                    type="date"
+                    className={classes.releaseDateInput}
+                    defaultValue={item.releaseDate}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </TableCell>
+                <TableCell align="left">
                   <Button
                     style={{ marginLeft: '2rem' }}
                     variant="contained"
@@ -232,18 +249,6 @@ export default () => {
                   >
                     Edit
                   </Button>
-                </TableCell>
-                <TableCell align="right">{item.createTimestamp}</TableCell>
-                {/* <TableCell align="right">{item.releaseDate}</TableCell> */}
-                <TableCell align="right">
-                  <TextField
-                    id="date"
-                    type="date"
-                    defaultValue={item.releaseDate}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
                 </TableCell>
               </TableRow>
             ))}

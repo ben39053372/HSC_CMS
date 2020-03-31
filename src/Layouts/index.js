@@ -13,9 +13,9 @@ const Main = ({route}) => {
     <div className={classes.App}>
       <Appbar />
       <Drawer />
-      <main className={clsx(classes.content, {
+      <main className={`${clsx(classes.content, {
         [classes.contentShift]: drawerOpen,
-      })}>
+      })} ${classes.main} `}>
         <div className={classes.drawerHeader} />
         {renderRoutes(route.routes)}
       </main>

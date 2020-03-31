@@ -50,7 +50,7 @@ export default () => {
         <TableHead>
           <TableRow>
             {header.map((item, index) => (
-              <TableCell align={index === 0? 'left' : 'right'} key={`Broker_TableCell_${index}`}>
+              <TableCell align="left" key={`Broker_TableCell_${index}`}>
                 {item}
               </TableCell>
             ))}
@@ -60,10 +60,10 @@ export default () => {
           {closingRecordList && closingRecordList.map(item => (
             <TableRow key={`closing_record_list_${item.id}`}>
               <TableCell>{item.id}</TableCell>
-              <TableCell align="right">{item.customerEmail}</TableCell>
-              <TableCell align="right">{item.brokerName}</TableCell>
-              <TableCell align="right"><Link href={item.imagePath} target="blank" >{item.imagePath}</Link></TableCell>
-              <TableCell align="right">
+              <TableCell align="left">{item.customerEmail}</TableCell>
+              <TableCell align="left">{item.brokerName}</TableCell>
+              <TableCell align="left"><Link href={item.imagePath} target="blank" >{item.imagePath}</Link></TableCell>
+              <TableCell align="left">
                 <Button variant="contained" color="default" onClick={() => onRedeemClick(item.id, item.isRedeemed)}>
                   {item.isRedeemed ? 'yes' : 'no'}
                 </Button>
