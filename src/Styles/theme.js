@@ -14,7 +14,7 @@ export default createMuiTheme({
     },
     MuiListItem: {
       gutters: {
-        padding: '0 10px'
+        padding: '10px'
       },
     },
     MuiCardHeader: {
