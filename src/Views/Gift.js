@@ -41,6 +41,7 @@ const CreateGiftDialog = props => {
       if(res.status === 200) {
         props.onClose()
       } else {
+        console.log(res.data.error)
         setAlertText(res.data.error)
         setAlertOpen(true)
       }
@@ -60,7 +61,9 @@ const CreateGiftDialog = props => {
         onChange={onFileChange}
       />
       <Dialog open={props.open} onClose={props.onClose}>
-        <DialogTitle>Create Gift</DialogTitle>
+        <DialogTitle>Create Gift
+          {/* alert */}
+          <Alert open={alertOpen} setOpen={onAlertOpenClick} text={alertText} /></DialogTitle>
         <DialogContent>
           <Button
             className={classes.uploadButton}
@@ -74,8 +77,7 @@ const CreateGiftDialog = props => {
           <TextField type="date" value={releaseDate} onChange={e => setReleaseDate(e.target.value)} label="release date:" className={classes.uploadRelaseDateInput} />
           {/* photo */}
           { fileObjUrl && <img src={fileObjUrl} style={{display: 'flex', margin: '10px auto'}} alt="uploaded_img" />}
-          {/* alert */}
-          <Alert open={alertOpen} setOpen={onAlertOpenClick} text={alertText} />
+          
         </DialogContent>
         {/* action */}
         <DialogActions>
@@ -118,7 +120,7 @@ const EditGiftDialog = props => {
       if(res.status === 200) {
         props.onClose()
       } else {
-        setAlertText(res.statusText)
+        setAlertText(res.data.error)
         setAlertOpen(true)
       }
     })
@@ -141,7 +143,9 @@ const EditGiftDialog = props => {
         onChange={onFileChange}
       />
       <Dialog open={props.open} onClose={props.onClose}>
-        <DialogTitle>Edit Gift</DialogTitle>
+        <DialogTitle>Edit Gift
+          {/* alert */}
+          <Alert open={alertOpen} setOpen={onAlertOpenClick} text={alertText} /></DialogTitle>
         <DialogContent>
           <Button
             className={classes.uploadButton}
@@ -154,8 +158,7 @@ const EditGiftDialog = props => {
           <TextField type="date" value={props.date} onChange={e => setReleaseDate(e.target.value)} label="release date:" className={classes.uploadRelaseDateInput} />
           {/* photo */}
           { fileObjUrl && <img src={fileObjUrl} style={{display: 'flex', margin: '10px auto'}} alt="uploaded_img" />}
-          {/* alert */}
-          <Alert open={alertOpen} setOpen={onAlertOpenClick} text={alertText} />
+          
         </DialogContent>
         {/* action */}
         <DialogActions>
