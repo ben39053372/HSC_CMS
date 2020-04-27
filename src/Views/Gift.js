@@ -41,8 +41,8 @@ const CreateGiftDialog = props => {
       if(res.status === 200) {
         props.onClose()
       } else {
-        console.log(res.data.error)
-        setAlertText(res.data.error)
+        console.log(res.data.error || JSON.stringify(res.error))
+        setAlertText(res.data.error || JSON.stringify(res.error))
         setAlertOpen(true)
       }
     })
