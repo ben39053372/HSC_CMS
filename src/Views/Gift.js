@@ -110,6 +110,10 @@ const EditGiftDialog = props => {
     // console.log('upload')
     fileUploader2.current.click()
   }
+  const onReleaseDateChange = (e) => {
+    console.log(e.target.value)
+    setReleaseDate(e.target.value)
+  }
   const onComfirm = () => {
     console.log(props.date)
     console.log()
@@ -117,6 +121,7 @@ const EditGiftDialog = props => {
       console.log(res)
       if(res.status === 200) {
         props.onClose()
+        setFileObjUrl(null)
       } else {
         setAlertText(res.statusText)
         setAlertOpen(true)
@@ -128,8 +133,13 @@ const EditGiftDialog = props => {
   }
   // make sure this.releaseDate = props.date
   useEffect(() => {
+    console.log(props.date)
     setReleaseDate(props.date)
   }, [props.date])
+
+  useEffect(() => {
+    setFileObjUrl(null)
+  }, [])
 
   return (
     <>
@@ -151,7 +161,7 @@ const EditGiftDialog = props => {
           >
             UPLOAD
           </Button>
-          <TextField type="date" value={props.date} onChange={e => setReleaseDate(e.target.value)} label="release date:" className={classes.uploadRelaseDateInput} />
+          <TextField type="date" value={releaseDate} onChange={onReleaseDateChange} label="release date:" className={classes.uploadRelaseDateInput} />
           {/* photo */}
           { fileObjUrl && <img src={fileObjUrl} style={{display: 'flex', margin: '10px auto'}} alt="uploaded_img" />}
           {/* alert */}
