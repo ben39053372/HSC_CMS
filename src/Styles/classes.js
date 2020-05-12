@@ -93,7 +93,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#eee',
     minHeight: '100vh'
   },
-  
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  }
 }))
 
 export default useStyles

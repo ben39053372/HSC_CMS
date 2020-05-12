@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { TableContainer, Table, Paper, TextField, TableHead, TableBody, TableRow, TableCell, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Link } from '@material-ui/core'
+import { TableContainer, Table, Paper, TextField, CircularProgress, TableHead, TableBody, TableRow, TableCell, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Link } from '@material-ui/core'
 import { getGiftRecordList, createGiftRecord, updateGiftRecord } from '@api'
 import useStyles from '@Styles'
 import Alert from '@components/alert'
@@ -16,10 +16,10 @@ const CreateGiftDialog = props => {
   const classes = useStyles()
   const [fileObj, setFileObj] = useState()
   const [fileObjUrl, setFileObjUrl] = useState()
-  const [releaseDate, setReleaseDate] = useState(new Date().toISOString().slice(0,10))
+  const [releaseDate, setReleaseDate] = useState(new Date().toISOString().slice(0, 10))
   const [alertOpen, setAlertOpen] = useState(false)
   const [alertText, setAlertText] = useState('')
-
+  const [loading, setLoading] = useState(false)
   // function
   const fileUploader = useRef(null)
   const onFileChange = (event) => {
@@ -27,23 +27,32 @@ const CreateGiftDialog = props => {
     event.preventDefault();
     var file = event.target.files[0];
     console.log(file)
-    setFileObj(file)
-
-    setFileObjUrl(window.URL.createObjectURL(file))
+    if (file !== undefined) {
+      if (file.size > 1000000) {
+        setAlertText('圖片大小限制不得大於1MB')
+        setAlertOpen(true)
+      } else {
+        setFileObj(file)
+        setFileObjUrl(window.URL.createObjectURL(file))
+      }
+    }
   }
   const uploadPhoto = () => {
     // console.log('upload')
     fileUploader.current.click()
   }
   const onComfirm = () => {
+    setLoading(true)
     createGiftRecord(fileObj, releaseDate).then(res => {
       console.log(res)
-      if(res.status === 200) {
+      if (res.status === 200) {
         props.onClose()
+        setLoading(false)
       } else {
-        console.log(res.data.error || JSON.stringify(res.error))
-        setAlertText(res.data.error || JSON.stringify(res.error))
+        console.log(res.statusText)
+        setAlertText(res.data.error)
         setAlertOpen(true)
+        setLoading(false)
       }
     })
   }
@@ -76,13 +85,18 @@ const CreateGiftDialog = props => {
           {/* date */}
           <TextField type="date" value={releaseDate} onChange={e => setReleaseDate(e.target.value)} label="release date:" className={classes.uploadRelaseDateInput} />
           {/* photo */}
-          { fileObjUrl && <img src={fileObjUrl} style={{display: 'flex', margin: '10px auto'}} alt="uploaded_img" />}
-          
+          {fileObjUrl && <img src={fileObjUrl} style={{ display: 'flex', margin: '10px auto' }} alt="uploaded_img" />}
+
         </DialogContent>
         {/* action */}
         <DialogActions>
-          <Button color="primary" onClick={props.onClose}>cancel</Button>
-          <Button color="primary" onClick={onComfirm}>comfirm</Button>
+          <div style={{ position: 'relative' }}>
+            <Button color="primary" onClick={props.onClose} disabled={loading}>cancel</Button>
+          </div>
+          <div style={{ position: 'relative' }}>
+            <Button color="primary" onClick={onComfirm} disabled={loading || fileObj === undefined}>comfirm</Button>
+            {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+          </div>
         </DialogActions>
       </Dialog>
     </>
@@ -97,6 +111,7 @@ const EditGiftDialog = props => {
   const [alertOpen, setAlertOpen] = useState(false)
   const [alertText, setAlertText] = useState('')
   const [releaseDate, setReleaseDate] = useState(props.date)
+  const [loading, setLoading] = useState(false)
   // function
   const fileUploader2 = useRef(null)
   const onFileChange = (event) => {
@@ -104,9 +119,15 @@ const EditGiftDialog = props => {
     event.preventDefault();
     var file = event.target.files[0];
     console.log(file)
-    setFileObj(file)
-
-    setFileObjUrl(window.URL.createObjectURL(file))
+    if (file !== undefined) {
+      if (file.size > 1000000) {
+        setAlertText('圖片大小限制不得大於1MB')
+        setAlertOpen(true)
+      } else {
+        setFileObj(file)
+        setFileObjUrl(window.URL.createObjectURL(file))
+      }
+    }
   }
   const uploadPhoto = () => {
     // console.log('upload')
@@ -117,16 +138,20 @@ const EditGiftDialog = props => {
     setReleaseDate(e.target.value)
   }
   const onComfirm = () => {
+    setLoading(true)
     console.log(props.date)
     console.log()
     updateGiftRecord(props.id, fileObj, releaseDate).then(res => {
       console.log(res)
-      if(res.status === 200) {
+
+      if (res.status === 200) {
         props.onClose()
         setFileObjUrl(null)
+        setLoading(false)
       } else {
-        setAlertText(res.data.error)
+        setAlertText(res.statusText)
         setAlertOpen(true)
+        setLoading(false)
       }
     })
   }
@@ -148,6 +173,7 @@ const EditGiftDialog = props => {
       <input
         type="file"
         id="file"
+        accept="image/*"
         style={{ display: 'none' }}
         ref={fileUploader2}
         onChange={onFileChange}
@@ -165,15 +191,21 @@ const EditGiftDialog = props => {
           >
             UPLOAD
           </Button>
+
           <TextField type="date" value={releaseDate} onChange={onReleaseDateChange} label="release date:" className={classes.uploadRelaseDateInput} />
           {/* photo */}
-          { fileObjUrl && <img src={fileObjUrl} style={{display: 'flex', margin: '10px auto'}} alt="uploaded_img" />}
-          
+          {fileObjUrl && <img src={fileObjUrl} style={{ display: 'flex', margin: '10px auto' }} alt="uploaded_img" />}
+
         </DialogContent>
         {/* action */}
         <DialogActions>
-          <Button color="primary" onClick={props.onClose}>cancel</Button>
-          <Button color="primary" onClick={onComfirm}>comfirm</Button>
+          <div style={{ position: 'relative' }}>
+            <Button color="primary" onClick={props.onClose} disabled={loading}>cancel</Button>
+          </div>
+          <div style={{ position: 'relative' }}>
+            <Button color="primary" onClick={onComfirm} disabled={loading || fileObj === undefined}>comfirm</Button>
+            {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+          </div>
         </DialogActions>
       </Dialog>
     </>
@@ -242,7 +274,8 @@ export default () => {
                 </TableCell>
                 <TableCell align="left">{item.createTimestamp}</TableCell>
                 {/* <TableCell align="left">{item.releaseDate}</TableCell> */}
-                <TableCell align="left">
+                {/* make releaseDate cant edit */}
+                {/* <TableCell align="left">
                   <TextField
                     id="date"
                     type="date"
@@ -252,7 +285,8 @@ export default () => {
                       shrink: true,
                     }}
                   />
-                </TableCell>
+                </TableCell> */}
+                <TableCell align="left">{item.releaseDate}</TableCell>
                 <TableCell align="left">
                   <Button
                     style={{ marginLeft: '2rem' }}
